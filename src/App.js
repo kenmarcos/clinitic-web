@@ -1,8 +1,12 @@
+import { GlobalStyle } from "./styles/global";
+import Router from "./routes";
+
 function App() {
   return (
-    <div>
-      <h1>Clinitic</h1>
-    </div>
+    <>
+      <GlobalStyle />
+      <Router />
+    </>
   );
 }
 
