@@ -26,6 +26,7 @@ button {
     --color4: #91bcff;
     --blackColor: ##1a1a1a;
     --grayColor: #666666;
+    --redColor: #FA5858;
     --darkGrayColor: #212529;
     --font1: system-ui, sans-serif;
     --font2: Roboto, sans-serif;

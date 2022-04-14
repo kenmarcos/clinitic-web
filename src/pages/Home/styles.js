@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Modal from "styled-react-modal";
 
 export const Container = styled.div`
   background-color: var(--color2);
@@ -97,31 +98,32 @@ export const Illustration = styled.figure`
   }
 `;
 
-export const FinalContent = styled.section`
-  background-color: var(--color1);
-  text-align: center;
-`;
-
-export const HitPhrase = styled.h2`
-  font-family: var(--font1);
-  color: var(--whiteColor);
-  padding: 0 2rem 4rem 2rem;
-  font-size: 2rem;
-
-  @media only screen and (min-width: 1024px) {
-    padding: 0 10rem 8rem 10rem;
-    font-size: 3rem;
-  }
-`;
-
 export const Banner = styled.figure`
   img {
     width: 100%;
   }
 
   @media only screen and (min-width: 1024px) {
+    background: var(--color1);
+
     img {
-      width: 65%;
+      width: 60%;
+      display: block;
+      margin: 0 auto;
     }
+  }
+`;
+
+export const StyledModal = Modal.styled`
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color2);
+  position: relative;
+  border-radius: 5px;
+
+  @media only screen and (min-width: 1024px) {
+    width: 40rem;
   }
 `;
