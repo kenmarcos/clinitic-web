@@ -19,16 +19,21 @@ button {
 }
 
 :root {
-    --primaryColor: #0063ff;
-    --secondaryColor: #ffffff;
-    --tertiaryColor: #dae8ff;
-    --quaternaryColor: #b6d2ff;
-    --quinaryColor: #91bcff;
+    --color1: #4B04FC;
+    --whiteColor: #ffffff;
+    --color2: #dae8ff;
+    --color3: #647CFC;
+    --color4: #91bcff;
     --blackColor: ##1a1a1a;
     --grayColor: #666666;
     --darkGrayColor: #212529;
-    --font1: 'Open Sans', sans-serif;
+    --font1: system-ui, sans-serif;
     --font2: Roboto, sans-serif;
+}
+
+body {
+    font-family: var(--font2);
+    color: var(--grayColor);
 }
 
 `;
