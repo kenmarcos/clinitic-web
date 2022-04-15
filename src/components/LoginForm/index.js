@@ -52,7 +52,7 @@ const LoginForm = () => {
             error={errors.password?.message}
           />
         </div>
-        <Button className="createAccountBtn" type="submit">
+        <Button className="createtBtn" type="submit">
           Entrar
         </Button>
       </Form>

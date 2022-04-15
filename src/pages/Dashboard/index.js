@@ -61,7 +61,10 @@ const Dashboard = () => {
   return (
     <>
       <Header>
-        <Button onClick={() => navigate("/schedules")} className="signUpBtn">
+        <Button
+          onClick={() => navigate("/schedules")}
+          className="headerMainBtn"
+        >
           Agendamentos
         </Button>
         <LogoutContainer onClick={() => navigate("/")}>

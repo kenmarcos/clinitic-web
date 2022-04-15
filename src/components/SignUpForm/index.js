@@ -84,7 +84,7 @@ const SignUpForm = () => {
           />
         </div>
         {/* <ButtonContainer> */}
-        <Button className="createAccountBtn" type="submit">
+        <Button className="createtBtn" type="submit">
           Enviar
         </Button>
         {/* </ButtonContainer> */}

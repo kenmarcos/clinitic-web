@@ -1,6 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import api from "../../services/api";
-import { useDoctor } from "../doctor";
 
 const AppointmentContext = createContext();
 
@@ -34,7 +33,6 @@ export const AppointmentProvider = ({ children }) => {
   };
 
   const getAppointmentsByDoctorAndDay = () => {
-    console.log(loggedDoctor.id, typeof loggedDoctor.id);
     api
       .get(`/appointments/doctors/${loggedDoctor.id}?date=${currentDate}`)
       .then((res) => {
@@ -57,6 +55,10 @@ export const AppointmentProvider = ({ children }) => {
       .catch((err) => console.log(`Token ${token}`));
   };
 
+  const createAppointment = (data) => {
+    console.log(data);
+  };
+
   useEffect(() => {
     getAppointments();
     getAppointmentsByDoctorAndDay();
@@ -69,6 +71,7 @@ export const AppointmentProvider = ({ children }) => {
         getAppointments,
         cancelAppointment,
         dayAppointmentsByDoctor,
+        createAppointment,
       }}
     >
       {children}

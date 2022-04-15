@@ -36,7 +36,7 @@ const Home = () => {
         <Button onClick={() => navigate("/login")} className="loginBtn">
           Login
         </Button>
-        <Button onClick={toggleModal} className="signUpBtn">
+        <Button onClick={toggleModal} className="headerMainBtn">
           Cadastrar
         </Button>
       </Header>

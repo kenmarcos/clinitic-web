@@ -30,7 +30,7 @@ export const Container = styled.button`
     }
   }
 
-  &.signUpBtn {
+  &.headerMainBtn {
     background-color: var(--color1);
     padding: 10px;
     border-radius: 5px;
@@ -38,7 +38,7 @@ export const Container = styled.button`
     color: var(--whiteColor);
   }
 
-  &.createAccountBtn {
+  &.createtBtn {
     background-color: var(--color1);
     width: 100%;
     font-size: 2rem;
@@ -73,5 +73,10 @@ export const Container = styled.button`
     border: 1px solid var(--color3);
     background-color: var(--whiteColor);
     color: var(--darkGrayColor);
+  }
+
+  &.scheduleBtn {
+    background-color: var(--color1);
+    color: var(--whiteColor);
   }
 `;
