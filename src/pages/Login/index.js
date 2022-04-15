@@ -5,7 +5,7 @@ import Header from "../../components/Header";
 const Login = () => {
   return (
     <>
-      <Header></Header>
+      <Header />
       <Container>
         <LoginBox>
           <LoginForm />

@@ -49,4 +49,12 @@ export const Container = styled.button.attrs((props) => ({
     margin-bottom: 1.5rem;
     padding: 5px;
   }
+
+  &.logoutBtn {
+    display: none;
+
+    @media only screen and (min-width: 1024px) {
+      display: block;
+    }
+  }
 `;
