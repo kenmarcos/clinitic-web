@@ -8,11 +8,12 @@ import { FaUserCircle, FaClinicMedical } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { GoKey } from "react-icons/go";
 import Button from "../Button";
+import { useDoctor } from "../../providers/doctor";
 
 const SignUpForm = () => {
-  // const { registerNewUser } = useUser();
+  const { registerNewDoctor } = useDoctor();
 
-  //   const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const schema = yup.object().shape({
     first_name: yup.string().required("Campo obrigatório"),
@@ -28,9 +29,8 @@ const SignUpForm = () => {
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
 
-  const handleForm = ({ username, email, password }) => {
-    //   const user = { username, email, password };
-    //   registerNewUser(user, navigate);
+  const handleForm = (data) => {
+    registerNewDoctor(data, navigate);
   };
 
   return (
