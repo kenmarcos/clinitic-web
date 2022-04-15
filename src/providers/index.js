@@ -1,7 +1,12 @@
 import { DoctorProvider } from "./doctor";
+import { AppointmentProvider } from "./appointment";
 
 const Providers = ({ children }) => {
-  return <DoctorProvider>{children}</DoctorProvider>;
+  return (
+    <AppointmentProvider>
+      <DoctorProvider>{children}</DoctorProvider>;
+    </AppointmentProvider>
+  );
 };
 
 export default Providers;

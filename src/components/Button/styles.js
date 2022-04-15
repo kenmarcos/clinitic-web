@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
-export const Container = styled.button.attrs((props) => ({
-  className: props.className,
-}))`
+export const Container = styled.button`
   border: none;
   box-shadow: 0px 12px 20px -15px black;
   transform: translate(0px, 2px);
@@ -56,5 +54,24 @@ export const Container = styled.button.attrs((props) => ({
     @media only screen and (min-width: 1024px) {
       display: block;
     }
+  }
+
+  &.cancelBtn {
+    background-color: var(--redColor);
+    color: var(--whiteColor);
+    transform: none;
+    :hover {
+      filter: brightness(1.3);
+    }
+    font-size: 1rem;
+    padding: 8px;
+    margin-top: 5px;
+    border-radius: 5px;
+  }
+
+  &.basicBtn {
+    border: 1px solid var(--color3);
+    background-color: var(--whiteColor);
+    color: var(--darkGrayColor);
   }
 `;
