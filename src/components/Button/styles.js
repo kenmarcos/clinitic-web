@@ -46,5 +46,7 @@ export const Container = styled.button.attrs((props) => ({
     font-size: 2rem;
     color: var(--whiteColor);
     border-radius: 5px;
+    margin-bottom: 1.5rem;
+    padding: 5px;
   }
 `;

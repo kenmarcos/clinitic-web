@@ -5,6 +5,10 @@ import api from "../../services/api";
 const DoctorContext = createContext();
 
 export const DoctorProvider = ({ children }) => {
+  const [token, setToken] = useState(
+    localStorage.getItem("@clinitic:token") || ""
+  );
+
   const registerNewDoctor = (data, navigate) => {
     api
       .post("/doctors/", data)
@@ -18,8 +22,21 @@ export const DoctorProvider = ({ children }) => {
       });
   };
 
+  const login = (data, navigate) => {
+    api
+      .post("/login/", data)
+      .then((res) => {
+        localStorage.clear();
+        localStorage.setItem("@clinitic:token", res.data.token);
+        setToken(res.data.token);
+        navigate("/dashboard");
+        toast.success("Seja bem-vindo! Login feito com sucesso!");
+      })
+      .catch((_) => toast.error("E-mail ou senha inválidos."));
+  };
+
   return (
-    <DoctorContext.Provider value={{ registerNewDoctor }}>
+    <DoctorContext.Provider value={{ registerNewDoctor, login, token }}>
       {children}
     </DoctorContext.Provider>
   );

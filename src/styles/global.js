@@ -35,6 +35,7 @@ button {
 body {
     font-family: var(--font2);
     color: var(--grayColor);
+    background-color: var(--color2);
 }
 
 `;

@@ -2,7 +2,6 @@ import styled from "styled-components";
 import Modal from "styled-react-modal";
 
 export const Container = styled.div`
-  background-color: var(--color2);
   padding: 1rem;
 
   @media only screen and (min-width: 1024px) {

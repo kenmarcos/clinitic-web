@@ -20,9 +20,11 @@ import banner from "../../assets/Banner_Clinitic.png";
 import Header from "../../components/Header";
 import SignUpForm from "../../components/SignUpForm";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   function toggleModal(e) {
     setIsOpen(!isOpen);
@@ -31,7 +33,9 @@ const Home = () => {
   return (
     <>
       <Header>
-        <Button className="loginBtn">Login</Button>
+        <Button onClick={() => navigate("/login")} className="loginBtn">
+          Login
+        </Button>
         <Button onClick={toggleModal} className="signUpBtn">
           Cadastrar
         </Button>
