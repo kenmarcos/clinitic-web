@@ -23,7 +23,6 @@ const PatientForm = ({ setIsOpenPatientModal, isOpenPatientModal }) => {
   } = useForm({ resolver: yupResolver(schema) });
 
   const handleForm = (data) => {
-    console.log(data);
     createPatient(data);
   };
 
@@ -57,7 +56,7 @@ const PatientForm = ({ setIsOpenPatientModal, isOpenPatientModal }) => {
         <div>
           <Input
             label="Aniversário"
-            name="birthDate"
+            name="birth_date"
             type="date"
             register={register}
             error={errors.birth_date?.message}
