@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
+import toast from "react-hot-toast";
 import api from "../../services/api";
 
 const PatientContext = createContext();
@@ -18,12 +19,22 @@ export const PatientProvider = ({ children }) => {
       .catch((err) => console.log(err));
   };
 
+  const createPatient = (data) => {
+    api
+      .post("/patients/", data)
+      .then((res) => {
+        setPatients([...patients, res.data]);
+        toast.success("Paciente adicionado com sucesso");
+      })
+      .catch((_) => toast.error("Algo de mal. Tente novamente."));
+  };
+
   useEffect(() => {
     getPatients();
   }, []);
 
   return (
-    <PatientContext.Provider value={{ patients }}>
+    <PatientContext.Provider value={{ patients, createPatient }}>
       {children}
     </PatientContext.Provider>
   );

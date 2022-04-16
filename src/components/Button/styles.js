@@ -79,4 +79,12 @@ export const Container = styled.button`
     background-color: var(--color1);
     color: var(--whiteColor);
   }
+
+  &.patientBtn {
+    width: 15rem;
+    font-size: 1.3rem;
+    display: block;
+    margin: 1rem auto;
+    padding: 10px;
+  }
 `;

@@ -1,17 +1,14 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
-import { useNavigate, Link } from "react-router-dom";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../Input";
-import { Container, Form, Title, Span } from "./styles";
+import { Container, Form, Title } from "./styles";
 import Button from "../Button";
 import { useAppointment } from "../../providers/appointment";
 import toast from "react-hot-toast";
 
-const ScheduleForm = () => {
+const ScheduleForm = ({ setIsOpenModal, isOpenModal }) => {
   const { createAppointment } = useAppointment();
-
-  const navigate = useNavigate();
 
   const schema = yup.object().shape({
     title: yup.string().required("Campo obrigatório"),
@@ -30,10 +27,17 @@ const ScheduleForm = () => {
     const datetime2 = data.end;
     if (datetime2 < datetime1) {
       return toast.error(
-        "Data e horário finais não podem ser antes da data e horáro iniciais"
+        "Data e horário finais não podem ser antes da data e horáro iniciais."
       );
     }
-    createAppointment(data, navigate);
+
+    if (datetime1 < new Date() || datetime2 < new Date()) {
+      return toast.error("A data escolhida já passou.");
+    }
+
+    const patientId = JSON.parse(localStorage.getItem("@clinitic:patientId"));
+    const token = JSON.parse(localStorage.getItem("@clinitic:token"));
+    createAppointment(data, patientId, token);
   };
 
   return (
@@ -66,7 +70,11 @@ const ScheduleForm = () => {
             error={errors.end?.message}
           />
         </div>
-        <Button className="createtBtn" type="submit">
+        <Button
+          onClick={() => setIsOpenModal(!isOpenModal)}
+          className="createtBtn"
+          type="submit"
+        >
           Enviar
         </Button>
       </Form>

@@ -20,7 +20,6 @@ export const LogoutContainer = styled.div`
 `;
 
 export const CalendarContainer = styled.div`
-  border: 1px solid red;
   background-color: var(--whiteColor);
 
   @media only screen and (min-width: 1024px) {
@@ -81,6 +80,22 @@ export const StyledModal = Modal.styled`
 `;
 
 export const ScheduleModal = Modal.styled`
+  width: 90%;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color2);
+  position: relative;
+  border-radius: 5px;
+
+  @media only screen and (min-width: 1024px) {
+    width: 40rem;
+  }
+`;
+
+export const PatientModal = Modal.styled`
   width: 90%;
   padding: 1rem;
   display: flex;

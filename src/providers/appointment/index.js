@@ -1,4 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
+import toast from "react-hot-toast";
 import api from "../../services/api";
 
 const AppointmentContext = createContext();
@@ -11,6 +12,9 @@ export const AppointmentProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("@clinitic:loggedDoctor")) || {};
   const [dayAppointmentsByDoctor, setDayAppointmentsByDoctor] = useState(
     JSON.parse(localStorage.getItem("@clinitic:dayAppointmentsByDoctor")) || []
+  );
+  const [appointmentsByDoctor, setAppointmentsByDoctor] = useState(
+    JSON.parse(localStorage.getItem("@clinitic:appointmentsByDoctor")) || []
   );
 
   const date = new Date();
@@ -45,23 +49,50 @@ export const AppointmentProvider = ({ children }) => {
       .catch((err) => console.log(err));
   };
 
+  const getAppointmentsByDoctor = () => {
+    api
+      .get(`/appointments/doctors/${loggedDoctor.id}/`)
+      .then((res) => {
+        setAppointmentsByDoctor(res.data);
+        localStorage.setItem(
+          "@clinitic:appointmentsByDoctor",
+          JSON.stringify(res.data)
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+
   const cancelAppointment = (appointmentId, token) => {
     const data = { isActive: false };
     api
       .patch(`/appointments/${appointmentId}/`, data, {
         headers: { Authorization: `Token ${token}` },
       })
-      .then((res) => console.log(res.data))
-      .catch((err) => console.log(`Token ${token}`));
+      .then((_) => {
+        toast.success("Atendimento cancelado.");
+        window.location.reload();
+      })
+      .catch((_) => toast.error("Algo deu mal. Tente novamente."));
   };
 
-  const createAppointment = (data) => {
-    console.log(data);
+  const createAppointment = (data, patientId, token) => {
+    api
+      .post(`/appointments/patients/${patientId}/`, data, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
+      .then((_) => {
+        toast.success("Agendamento feito com sucesso");
+        window.location.reload();
+      })
+      .catch((_) => toast.error("Algo deu mal. Tente novamente."));
   };
 
   useEffect(() => {
     getAppointments();
     getAppointmentsByDoctorAndDay();
+    getAppointmentsByDoctor();
   }, []);
 
   return (
@@ -72,6 +103,7 @@ export const AppointmentProvider = ({ children }) => {
         cancelAppointment,
         dayAppointmentsByDoctor,
         createAppointment,
+        appointmentsByDoctor,
       }}
     >
       {children}

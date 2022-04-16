@@ -83,11 +83,9 @@ const SignUpForm = () => {
             error={errors.password?.message}
           />
         </div>
-        {/* <ButtonContainer> */}
         <Button className="createtBtn" type="submit">
           Enviar
         </Button>
-        {/* </ButtonContainer> */}
       </Form>
       <Span>
         Já possui conta? Faça o <Link to="/login">Login</Link>.

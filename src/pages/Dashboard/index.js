@@ -61,6 +61,7 @@ const Dashboard = () => {
   return (
     <>
       <Header>
+        {console.log(dayAppointmentsByDoctor)}
         <Button
           onClick={() => navigate("/schedules")}
           className="headerMainBtn"
