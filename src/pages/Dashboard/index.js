@@ -17,14 +17,14 @@ import { useAppointment } from "../../providers/appointment";
 import IndicatorCard from "../../components/IndicatorCard";
 import { weekdays, months } from "../../utils/dates";
 import { BsCalendar2Check, BsCalendar2X } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const {
-    dayAppointments,
+    // dayAppointments,
     cancelAppointment,
-    getAppointments,
+    // getAppointments,
     dayAppointmentsByDoctor,
   } = useAppointment();
 
@@ -54,14 +54,14 @@ const Dashboard = () => {
     );
     const token = JSON.parse(localStorage.getItem("@clinitic:token"));
     cancelAppointment(appointmentId, token);
-    getAppointments();
     toggleModal();
   };
+
+  useEffect(() => {}, [dayAppointmentsByDoctor]);
 
   return (
     <>
       <Header>
-        {console.log(dayAppointmentsByDoctor)}
         <Button
           onClick={() => navigate("/schedules")}
           className="headerMainBtn"

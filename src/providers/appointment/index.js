@@ -5,9 +5,9 @@ import api from "../../services/api";
 const AppointmentContext = createContext();
 
 export const AppointmentProvider = ({ children }) => {
-  const [dayAppointments, setDayAppointments] = useState(
-    JSON.parse(localStorage.getItem("@clinitic:dayAppointments")) || []
-  );
+  // const [dayAppointments, setDayAppointments] = useState(
+  //   JSON.parse(localStorage.getItem("@clinitic:dayAppointments")) || []
+  // );
   const loggedDoctor =
     JSON.parse(localStorage.getItem("@clinitic:loggedDoctor")) || {};
   const [dayAppointmentsByDoctor, setDayAppointmentsByDoctor] = useState(
@@ -16,6 +16,12 @@ export const AppointmentProvider = ({ children }) => {
   const [appointmentsByDoctor, setAppointmentsByDoctor] = useState(
     JSON.parse(localStorage.getItem("@clinitic:appointmentsByDoctor")) || []
   );
+  const [appointmentsByDoctorAndIsActive, setAppointmentsByDoctorAndIsActive] =
+    useState(
+      JSON.parse(
+        localStorage.getItem("@clinitic:appointmentsByDoctorAndIsActive")
+      ) || []
+    );
 
   const date = new Date();
   const day = String(date.getDate()).padStart(2, "0");
@@ -23,18 +29,18 @@ export const AppointmentProvider = ({ children }) => {
   const year = date.getFullYear();
   const currentDate = `${year}-${month}-${day}`;
 
-  const getAppointments = () => {
-    api
-      .get(`/appointments?date=${currentDate}`)
-      .then((res) => {
-        setDayAppointments(res.data);
-        localStorage.setItem(
-          "@clinitic:dayAppointments",
-          JSON.stringify(res.data)
-        );
-      })
-      .catch((err) => console.log(err));
-  };
+  // const getAppointments = () => {
+  //   api
+  //     .get(`/appointments?date=${currentDate}`)
+  //     .then((res) => {
+  //       setDayAppointments(res.data);
+  //       localStorage.setItem(
+  //         "@clinitic:dayAppointments",
+  //         JSON.stringify(res.data)
+  //       );
+  //     })
+  //     .catch((err) => console.log(err));
+  // };
 
   const getAppointmentsByDoctorAndDay = () => {
     api
@@ -62,6 +68,19 @@ export const AppointmentProvider = ({ children }) => {
       .catch((err) => console.log(err));
   };
 
+  const getAppointmentsByDoctorAndIsActive = () => {
+    api
+      .get(`/appointments/doctors/${loggedDoctor.id}?isActive=true`)
+      .then((res) => {
+        setAppointmentsByDoctorAndIsActive(res.data);
+        localStorage.setItem(
+          "@clinitic:appointmentsByDoctorAndIsActive",
+          JSON.stringify(res.data)
+        );
+      })
+      .catch((err) => console.log(err));
+  };
+
   const cancelAppointment = (appointmentId, token) => {
     const data = { isActive: false };
     api
@@ -70,7 +89,8 @@ export const AppointmentProvider = ({ children }) => {
       })
       .then((_) => {
         toast.success("Atendimento cancelado.");
-        window.location.reload();
+        getAppointmentsByDoctorAndDay();
+        getAppointmentsByDoctorAndIsActive();
       })
       .catch((_) => toast.error("Algo deu mal. Tente novamente."));
   };
@@ -84,26 +104,28 @@ export const AppointmentProvider = ({ children }) => {
       })
       .then((_) => {
         toast.success("Agendamento feito com sucesso");
-        window.location.reload();
+        getAppointmentsByDoctorAndIsActive();
       })
       .catch((_) => toast.error("Algo deu mal. Tente novamente."));
   };
 
   useEffect(() => {
-    getAppointments();
+    // getAppointments();
     getAppointmentsByDoctorAndDay();
     getAppointmentsByDoctor();
+    getAppointmentsByDoctorAndIsActive();
   }, []);
 
   return (
     <AppointmentContext.Provider
       value={{
-        dayAppointments,
-        getAppointments,
+        // dayAppointments,
+        // getAppointments,
         cancelAppointment,
         dayAppointmentsByDoctor,
         createAppointment,
         appointmentsByDoctor,
+        appointmentsByDoctorAndIsActive,
       }}
     >
       {children}
