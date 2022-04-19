@@ -47,6 +47,10 @@ export const DoctorProvider = ({ children }) => {
   const logout = () => {
     localStorage.removeItem("@clinitic:token");
     localStorage.removeItem("@clinitic:loggedDoctor");
+    localStorage.removeItem("@clinitic:dayAppointmentsByDoctor");
+    localStorage.removeItem("@clinitic:appointmentsByDoctor");
+    localStorage.removeItem("@clinitic:appointmentsByDoctorAndIsActive");
+    localStorage.removeItem("@clinitic:patients");
 
     setToken("");
     setLoggedDoctor({});
