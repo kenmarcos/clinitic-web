@@ -39,7 +39,6 @@ const ScheduleForm = ({
     }
 
     const patientId = JSON.parse(localStorage.getItem("@clinitic:patientId"));
-    // const token = JSON.parse(localStorage.getItem("@clinitic:token"));
     createAppointment(data, patientId);
     setIsOpenSchedulePatientModal(!isOpenSchedulePatientModal);
   };

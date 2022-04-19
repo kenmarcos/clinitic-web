@@ -8,7 +8,7 @@ export const Container = styled.div`
   width: 50%;
 
   @media only screen and (min-width: 1024px) {
-    width: 25rem;
+    width: 13rem;
   }
 `;
 

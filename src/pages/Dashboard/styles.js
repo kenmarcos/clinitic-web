@@ -21,11 +21,18 @@ export const Container = styled.div`
   @media only screen and (min-width: 1024px) {
     padding-left: 4rem;
     padding-right: 4rem;
+    display: flex;
+    gap: 5rem;
+    justify-content: center;
   }
 `;
 
 export const ContentBox = styled.section`
   margin-bottom: 3rem;
+
+  @media only screen and (min-width: 1024px) {
+    width: 50%;
+  }
 `;
 
 export const CardsBox = styled.div`
@@ -35,7 +42,7 @@ export const CardsBox = styled.div`
   justify-content: center;
 
   @media only screen and (min-width: 1024px) {
-    justify-content: space-around;
+    justify-content: start;
   }
 `;
 
@@ -56,6 +63,11 @@ export const SchedulesBox = styled.div`
     color: var(--color3);
     text-align: center;
     margin: 2rem 0;
+  }
+
+  @media only screen and (min-width: 1024px) {
+    height: 64vh;
+    overflow: auto;
   }
 `;
 

@@ -8,6 +8,7 @@ import {
   PatientList,
   PatientItems,
   StyledModal,
+  EventModal,
 } from "./styles";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
@@ -25,6 +26,9 @@ const Schedules = () => {
     useState(false);
   const [isOpenCreatePatientModal, setIsOpenCreatePatientModal] =
     useState(false);
+  const [isOpenEventModal, setIsOpenEventModal] = useState(false);
+
+  const [eventInfo, setEventInfo] = useState({});
 
   const {
     appointmentsByDoctorAndIsActive,
@@ -51,6 +55,11 @@ const Schedules = () => {
   const handlePatientModal = () => {
     setIsOpenListPatientModal(!isOpenListPatientModal);
     setIsOpenCreatePatientModal(!isOpenCreatePatientModal);
+  };
+
+  const toggleEventModal = (info) => {
+    setEventInfo(info.event);
+    setIsOpenEventModal(!isOpenEventModal);
   };
 
   useEffect(() => {
@@ -81,37 +90,77 @@ const Schedules = () => {
             ref={calendarRef}
             plugins={[dayGridPlugin]}
             initialView="dayGridMonth"
+            locale={"pt"}
             events={appointmentsByDoctorAndIsActive}
-            customButtons={{
-              dayGridWeek: {
-                text: "Semanal",
-                click() {
-                  const calendar = calendarRef.current;
-
-                  if (calendar) {
-                    const calendarApi = calendar.getApi();
-                    calendarApi.changeView("dayGridWeek");
-                  }
-                },
-              },
-              dayGridMonth: {
-                text: "Mensal",
-                click() {
-                  const calendar = calendarRef.current;
-
-                  if (calendar) {
-                    const calendarApi = calendar.getApi();
-                    calendarApi.changeView("dayGridMonth");
-                  }
-                },
-              },
-            }}
             headerToolbar={{
               left: "title",
               right: "dayGridWeek,dayGridMonth,prev,next",
             }}
+            buttonText={{
+              dayGridWeek: "Semanal",
+              dayGridMonth: "Mensal",
+            }}
+            eventClick={toggleEventModal}
           />
         </CalendarContainer>
+        <EventModal
+          isOpen={isOpenEventModal}
+          onBackgroundClick={toggleEventModal}
+          onEscapeKeydown={toggleEventModal}
+        >
+          <h3>{eventInfo?.title}</h3>
+          <h3>
+            Horário:
+            {` ${String(eventInfo?.start?.getHours()).padStart(
+              2,
+              "0"
+            )}h${String(eventInfo?.start?.getMinutes()).padStart(2, "0")}`}
+          </h3>
+          <ul>
+            <li>
+              <p>Pcte: {eventInfo?._def?.extendedProps?.patient.name}</p>
+            </li>
+            <li>
+              <p>CPF: {eventInfo?._def?.extendedProps?.patient.cpf}</p>
+            </li>
+            <li>
+              <p>
+                Sexo:
+                {eventInfo?._def?.extendedProps?.patient.sex === "M"
+                  ? " Masculino"
+                  : " Feminino"}
+              </p>
+            </li>
+            <li>
+              <p>
+                Idade:{" "}
+                {new Date().getMonth() <
+                  new Date(
+                    eventInfo?._def?.extendedProps?.patient.birth_date
+                  ).getMonth() ||
+                (new Date().getMonth() ===
+                  new Date(
+                    eventInfo?._def?.extendedProps?.patient.birth_date
+                  ).getMonth() &&
+                  new Date().getDate() <
+                    new Date(
+                      eventInfo?._def?.extendedProps?.patient.birth_date
+                    ).getDate())
+                  ? new Date().getFullYear() -
+                    new Date(
+                      eventInfo?._def?.extendedProps?.patient.birth_date
+                    ).getFullYear() -
+                    1 +
+                    " anos"
+                  : new Date().getFullYear() -
+                    new Date(
+                      eventInfo?._def?.extendedProps?.patient.birth_date
+                    ).getFullYear() +
+                    " anos"}
+              </p>
+            </li>
+          </ul>
+        </EventModal>
         <StyledModal
           isOpen={isOpenListPatientModal}
           onBackgroundClick={toggleModal}

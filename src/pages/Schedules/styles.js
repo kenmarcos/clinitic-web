@@ -69,14 +69,57 @@ export const StyledModal = Modal.styled`
   display: flex;
   flex-direction: column;
   align-items: center;
-  // justify-content: center;
   background-color: var(--color2);
   position: relative;
   border-radius: 5px;
   max-height: 85vh;
-  overflow: scroll;
+  overflow: auto;
 
   @media only screen and (min-width: 1024px) {
     width: 40rem;
+  }
+`;
+
+export const EventModal = Modal.styled`
+  width: 15rem;
+  height: 15rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: var(--color2);
+  position: relative;
+  border-radius: 5px;
+
+  h3 + ul {
+    margin-top: 1.7rem;
+  }
+
+  ul {
+    width: 100%;
+    padding: 0 10px;
+    
+    li {
+      line-height: 2rem;
+    }
+  }
+
+  @media only screen and (min-width: 1024px) {
+    width: 25rem;
+    height: 25rem;
+
+    h3 {
+      font-size: 2rem;
+    }
+
+    ul {
+      li {
+        line-height: 3rem;
+      }
+    }
+
+    p {
+      font-size: 1.3rem;
+    }
   }
 `;
