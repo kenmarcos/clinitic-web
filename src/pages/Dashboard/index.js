@@ -14,19 +14,22 @@ import {
 } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useAppointment } from "../../providers/appointment";
+import { useDoctor } from "../../providers/doctor";
 import IndicatorCard from "../../components/IndicatorCard";
 import { weekdays, months } from "../../utils/dates";
 import { BsCalendar2Check, BsCalendar2X } from "react-icons/bs";
 import { useEffect, useState } from "react";
+import { IoAlertCircle } from "react-icons/io5";
 
 const Dashboard = () => {
   const [isOpen, setIsOpen] = useState(false);
   const {
-    // dayAppointments,
     cancelAppointment,
-    // getAppointments,
+    getAppointmentsByDoctorAndDay,
     dayAppointmentsByDoctor,
   } = useAppointment();
+
+  const { logout } = useDoctor();
 
   const navigate = useNavigate();
 
@@ -52,12 +55,13 @@ const Dashboard = () => {
     const appointmentId = JSON.parse(
       localStorage.getItem("@clinitic:appointmentId")
     );
-    const token = JSON.parse(localStorage.getItem("@clinitic:token"));
-    cancelAppointment(appointmentId, token);
+    cancelAppointment(appointmentId);
     toggleModal();
   };
 
-  useEffect(() => {}, [dayAppointmentsByDoctor]);
+  useEffect(() => {
+    getAppointmentsByDoctorAndDay();
+  }, []);
 
   return (
     <>
@@ -68,7 +72,7 @@ const Dashboard = () => {
         >
           Agendamentos
         </Button>
-        <LogoutContainer onClick={() => navigate("/")}>
+        <LogoutContainer onClick={logout}>
           <Button className="loginBtn logoutBtn">Logout</Button>
           <FiLogOut />
         </LogoutContainer>
@@ -79,7 +83,8 @@ const Dashboard = () => {
           onBackgroundClick={toggleModal}
           onEscapeKeydown={toggleModal}
         >
-          <h3>Quer mesmo cancelar esse atendimento?</h3>
+          <IoAlertCircle />
+          <h3>Tem certeza que quer cancelar esse atendimento?</h3>
           <div>
             <Button onClick={toggleModal} className="cancelBtn basicBtn">
               Não
@@ -119,25 +124,29 @@ const Dashboard = () => {
         <ContentBox>
           <Title>Agendamentos do dia</Title>
           <SchedulesBox>
-            <SchedulesList>
-              {dayAppointmentsByDoctor.map((appointment) => (
-                <SchedulesItems key={appointment.id}>
-                  <h3>{appointment.title}</h3>
-                  <span>Paciente: {appointment.patient["name"]}</span>
-                  <span>Horário: {appointment.start.slice(-9, -4)}</span>
-                  {appointment.isActive ? (
-                    <Button
-                      onClick={() => handleModal(appointment.id)}
-                      className="cancelBtn"
-                    >
-                      Cancelar
-                    </Button>
-                  ) : (
-                    <small>Cancelado</small>
-                  )}
-                </SchedulesItems>
-              ))}
-            </SchedulesList>
+            {!!dayAppointmentsByDoctor.length ? (
+              <SchedulesList>
+                {dayAppointmentsByDoctor.map((appointment) => (
+                  <SchedulesItems key={appointment.id}>
+                    <h3>{appointment.title}</h3>
+                    <span>Paciente: {appointment.patient["name"]}</span>
+                    <span>Horário: {appointment.start.slice(-9, -4)}</span>
+                    {appointment.isActive ? (
+                      <Button
+                        onClick={() => handleModal(appointment.id)}
+                        className="cancelBtn"
+                      >
+                        Cancelar
+                      </Button>
+                    ) : (
+                      <small>Cancelado</small>
+                    )}
+                  </SchedulesItems>
+                ))}
+              </SchedulesList>
+            ) : (
+              <h2>Não há atendimentos agendados para hoje.</h2>
+            )}
           </SchedulesBox>
         </ContentBox>
       </Container>

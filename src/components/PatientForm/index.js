@@ -2,18 +2,32 @@ import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../Input";
-import { Container, Form } from "./styles";
+import {
+  Container,
+  Title,
+  Form,
+  RadioInputText,
+  RadioInputLabel,
+} from "./styles";
 import Button from "../Button";
 import { usePatient } from "../../providers/patient";
 
-const PatientForm = ({ setIsOpenPatientModal, isOpenPatientModal }) => {
+const PatientForm = ({
+  setIsOpenCreatePatientModal,
+  isOpenCreatePatientModal,
+}) => {
   const { createPatient } = usePatient();
 
   const schema = yup.object().shape({
     name: yup.string().required("Campo obrigatório"),
     cpf: yup.string().required("Campo obrigatório"),
     sex: yup.string().required("Campo obrigatório"),
-    birth_date: yup.string().required("Campo obrigatório"),
+    birth_date: yup
+      .string()
+      .required("Campo obrigatório")
+      .test("validBirthDate", "Data inválida", (value) => {
+        return new Date(value) < new Date();
+      }),
   });
 
   const {
@@ -24,10 +38,12 @@ const PatientForm = ({ setIsOpenPatientModal, isOpenPatientModal }) => {
 
   const handleForm = (data) => {
     createPatient(data);
+    setIsOpenCreatePatientModal(!isOpenCreatePatientModal);
   };
 
   return (
     <Container>
+      <Title>Adicionar Paciente</Title>
       <Form onSubmit={handleSubmit(handleForm)}>
         <div>
           <Input
@@ -46,27 +62,35 @@ const PatientForm = ({ setIsOpenPatientModal, isOpenPatientModal }) => {
           />
         </div>
         <div>
-          <Input
-            label="Sexo"
+          <RadioInputText>Sexo:</RadioInputText>
+          <input
             name="sex"
-            register={register}
-            error={errors.sex?.message}
+            id="female"
+            type="radio"
+            value="F"
+            defaultChecked
+            {...register("sex")}
           />
+          <RadioInputLabel for="female">Feminino</RadioInputLabel>
+          <input
+            name="sex"
+            id="male"
+            type="radio"
+            value="M"
+            {...register("sex")}
+          />
+          <RadioInputLabel for="male">Masculino</RadioInputLabel>
         </div>
         <div>
           <Input
-            label="Aniversário"
+            label="Data de nascimento"
             name="birth_date"
             type="date"
             register={register}
             error={errors.birth_date?.message}
           />
         </div>
-        <Button
-          onClick={() => setIsOpenPatientModal(!isOpenPatientModal)}
-          className="createtBtn"
-          type="submit"
-        >
+        <Button className="createtBtn" type="submit">
           Enviar
         </Button>
       </Form>

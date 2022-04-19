@@ -41,3 +41,14 @@ export const Form = styled.form`
     margin-bottom: 1.5rem;
   }
 `;
+
+export const RadioInputText = styled.p`
+  margin-bottom: 0.2rem;
+  color: var(--color1);
+  font-weight: bold;
+`;
+
+export const RadioInputLabel = styled.label`
+  color: var(--grayColor);
+  margin: 0 15px 0 2px;
+`;

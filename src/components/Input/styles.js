@@ -29,4 +29,5 @@ export const ContainerInput = styled.div`
 export const StyledInput = styled.input`
   color: var(--grayColor);
   font-size: 1rem;
+  width: 100%;
 `;

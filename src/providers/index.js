@@ -4,11 +4,11 @@ import { PatientProvider } from "./patient";
 
 const Providers = ({ children }) => {
   return (
-    <PatientProvider>
-      <AppointmentProvider>
-        <DoctorProvider>{children}</DoctorProvider>;
-      </AppointmentProvider>
-    </PatientProvider>
+    <DoctorProvider>
+      <PatientProvider>
+        <AppointmentProvider>{children}</AppointmentProvider>
+      </PatientProvider>
+    </DoctorProvider>
   );
 };
 

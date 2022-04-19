@@ -6,7 +6,7 @@ const DoctorContext = createContext();
 
 export const DoctorProvider = ({ children }) => {
   const [token, setToken] = useState(
-    localStorage.getItem("@clinitic:token") || ""
+    JSON.parse(localStorage.getItem("@clinitic:token")) || ""
   );
   const [loggedDoctor, setLoggedDoctor] = useState(
     JSON.parse(localStorage.getItem("@clinitic:loggedDoctor")) || {}
@@ -32,29 +32,29 @@ export const DoctorProvider = ({ children }) => {
         localStorage.clear();
         localStorage.setItem("@clinitic:token", JSON.stringify(res.data.token));
         setToken(res.data.token);
+        localStorage.setItem(
+          "@clinitic:loggedDoctor",
+          JSON.stringify(res.data.doctor)
+        );
+        setLoggedDoctor(res.data.doctor);
         navigate("/dashboard");
+
         toast.success("Seja bem-vindo! Login feito com sucesso!");
-        getLoggedDoctor(data.email);
       })
       .catch((_) => toast.error("E-mail ou senha inválidos."));
   };
 
-  const getLoggedDoctor = (email) => {
-    api
-      .get(`/doctors/${email}/`)
-      .then((res) => {
-        localStorage.setItem(
-          "@clinitic:loggedDoctor",
-          JSON.stringify(res.data)
-        );
-        setLoggedDoctor(res.data);
-      })
-      .catch((err) => console.log(err));
+  const logout = () => {
+    localStorage.removeItem("@clinitic:token");
+    localStorage.removeItem("@clinitic:loggedDoctor");
+
+    setToken("");
+    setLoggedDoctor({});
   };
 
   return (
     <DoctorContext.Provider
-      value={{ registerNewDoctor, login, token, loggedDoctor }}
+      value={{ registerNewDoctor, login, token, loggedDoctor, logout }}
     >
       {children}
     </DoctorContext.Provider>

@@ -5,11 +5,9 @@ import {
   Container,
   LogoutContainer,
   CalendarContainer,
-  StyledModal,
   PatientList,
   PatientItems,
-  ScheduleModal,
-  PatientModal,
+  StyledModal,
 } from "./styles";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
@@ -19,33 +17,46 @@ import { createRef, useEffect, useState } from "react";
 import { usePatient } from "../../providers/patient";
 import ScheduleForm from "../../components/ScheduleForm";
 import PatientForm from "../../components/PatientForm";
+import { useDoctor } from "../../providers/doctor";
 
 const Schedules = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [isOpenPatientModal, setIsOpenPatientModal] = useState(false);
-  const { appointmentsByDoctorAndIsActive } = useAppointment();
-  const { patients } = usePatient();
+  const [isOpenListPatientModal, setIsOpenListPatientModal] = useState(false);
+  const [isOpenSchedulePatientModal, setIsOpenSchedulePatientModal] =
+    useState(false);
+  const [isOpenCreatePatientModal, setIsOpenCreatePatientModal] =
+    useState(false);
+
+  const {
+    appointmentsByDoctorAndIsActive,
+    getAppointmentsByDoctorAndIsActive,
+  } = useAppointment();
+  const { patients, getPatients } = usePatient();
+
+  const { logout } = useDoctor();
+
   const calendarRef = createRef();
 
   const navigate = useNavigate();
 
   function toggleModal(e) {
-    setIsOpen(!isOpen);
+    setIsOpenListPatientModal(!isOpenListPatientModal);
   }
 
   const handleModal = (patientId) => {
     localStorage.setItem("@clinitic:patientId", JSON.stringify(patientId));
-    setIsOpen(!isOpen);
-    setIsOpenModal(!isOpenModal);
+    setIsOpenListPatientModal(!isOpenListPatientModal);
+    setIsOpenSchedulePatientModal(!isOpenSchedulePatientModal);
   };
 
   const handlePatientModal = () => {
-    setIsOpen(!isOpen);
-    setIsOpenPatientModal(!isOpenPatientModal);
+    setIsOpenListPatientModal(!isOpenListPatientModal);
+    setIsOpenCreatePatientModal(!isOpenCreatePatientModal);
   };
 
-  useEffect(() => {}, [appointmentsByDoctorAndIsActive]);
+  useEffect(() => {
+    getAppointmentsByDoctorAndIsActive();
+    getPatients();
+  }, []);
 
   return (
     <>
@@ -56,16 +67,16 @@ const Schedules = () => {
         >
           Dashboard
         </Button>
-        <LogoutContainer onClick={() => navigate("/")}>
+        <LogoutContainer onClick={logout}>
           <Button className="loginBtn logoutBtn">Logout</Button>
           <FiLogOut />
         </LogoutContainer>
       </Header>
       <Container>
-        <Button onClick={toggleModal} className="createtBtn patientBtn">
-          Agendar paciente
-        </Button>
         <CalendarContainer>
+          <Button onClick={toggleModal} className="createtBtn listPatientBtn">
+            Agendar paciente
+          </Button>
           <FullCalendar
             ref={calendarRef}
             plugins={[dayGridPlugin]}
@@ -102,51 +113,67 @@ const Schedules = () => {
           />
         </CalendarContainer>
         <StyledModal
-          isOpen={isOpen}
+          isOpen={isOpenListPatientModal}
           onBackgroundClick={toggleModal}
           onEscapeKeydown={toggleModal}
         >
-          <Button
-            onClick={handlePatientModal}
-            className="createtBtn patientBtn"
-          >
-            Adicionar Paciente
-          </Button>
+          <div>
+            <Button
+              onClick={handlePatientModal}
+              className="createtBtn listPatientBtn"
+            >
+              Adicionar paciente
+            </Button>
+          </div>
           <PatientList>
-            {patients?.map((patient) => (
-              <PatientItems key={patient.id}>
-                <h3>{patient.name}</h3>
-                <span>CPF: {patient.cpf}</span>
-                <Button
-                  onClick={() => handleModal(patient.id)}
-                  className="cancelBtn scheduleBtn"
-                >
-                  Agendar
-                </Button>
+            {!!patients.length ? (
+              patients.map((patient) => (
+                <PatientItems key={patient.id}>
+                  <h3>{patient.name}</h3>
+                  <span>CPF: {patient.cpf}</span>
+                  <Button
+                    onClick={() => handleModal(patient.id)}
+                    className="cancelBtn scheduleBtn"
+                  >
+                    Agendar
+                  </Button>
+                </PatientItems>
+              ))
+            ) : (
+              <PatientItems>
+                <p>Lista de pacientes vazia</p>
               </PatientItems>
-            ))}
+            )}
           </PatientList>
         </StyledModal>
-        <ScheduleModal
-          isOpen={isOpenModal}
-          onBackgroundClick={() => setIsOpenModal(!isOpenModal)}
-          onEscapeKeydown={() => setIsOpenModal(!isOpenModal)}
+        <StyledModal
+          isOpen={isOpenSchedulePatientModal}
+          onBackgroundClick={() =>
+            setIsOpenSchedulePatientModal(!isOpenSchedulePatientModal)
+          }
+          onEscapeKeydown={() =>
+            setIsOpenSchedulePatientModal(!isOpenSchedulePatientModal)
+          }
         >
           <ScheduleForm
-            setIsOpenModal={setIsOpenModal}
-            isOpenModal={isOpenModal}
+            setIsOpenSchedulePatientModal={setIsOpenSchedulePatientModal}
+            isOpenSchedulePatientModal={isOpenSchedulePatientModal}
           />
-        </ScheduleModal>
-        <PatientModal
-          isOpen={isOpenPatientModal}
-          onBackgroundClick={() => setIsOpenPatientModal(!isOpenPatientModal)}
-          onEscapeKeydown={() => setIsOpenPatientModal(!isOpenPatientModal)}
+        </StyledModal>
+        <StyledModal
+          isOpen={isOpenCreatePatientModal}
+          onBackgroundClick={() =>
+            setIsOpenCreatePatientModal(!isOpenCreatePatientModal)
+          }
+          onEscapeKeydown={() =>
+            setIsOpenCreatePatientModal(!isOpenCreatePatientModal)
+          }
         >
           <PatientForm
-            setIsOpenPatientModal={setIsOpenPatientModal}
-            isOpenPatientModal={isOpenPatientModal}
+            setIsOpenCreatePatientModal={setIsOpenCreatePatientModal}
+            isOpenCreatePatientModal={isOpenCreatePatientModal}
           />
-        </PatientModal>
+        </StyledModal>
       </Container>
     </>
   );

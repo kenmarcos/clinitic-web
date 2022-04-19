@@ -7,7 +7,10 @@ import Button from "../Button";
 import { useAppointment } from "../../providers/appointment";
 import toast from "react-hot-toast";
 
-const ScheduleForm = ({ setIsOpenModal, isOpenModal }) => {
+const ScheduleForm = ({
+  setIsOpenSchedulePatientModal,
+  isOpenSchedulePatientModal,
+}) => {
   const { createAppointment } = useAppointment();
 
   const schema = yup.object().shape({
@@ -27,17 +30,18 @@ const ScheduleForm = ({ setIsOpenModal, isOpenModal }) => {
     const datetime2 = data.end;
     if (datetime2 < datetime1) {
       return toast.error(
-        "Data e horário finais não podem ser antes da data e horáro iniciais."
+        "Data e horário finais devem ser após data e horário iniciais."
       );
     }
 
-    if (datetime1 < new Date() || datetime2 < new Date()) {
-      return toast.error("A data escolhida já passou.");
+    if (new Date(datetime1) < new Date() || new Date(datetime2) < new Date()) {
+      return toast.error("Datas e/ou horários inválidos.");
     }
 
     const patientId = JSON.parse(localStorage.getItem("@clinitic:patientId"));
-    const token = JSON.parse(localStorage.getItem("@clinitic:token"));
-    createAppointment(data, patientId, token);
+    // const token = JSON.parse(localStorage.getItem("@clinitic:token"));
+    createAppointment(data, patientId);
+    setIsOpenSchedulePatientModal(!isOpenSchedulePatientModal);
   };
 
   return (
@@ -70,11 +74,7 @@ const ScheduleForm = ({ setIsOpenModal, isOpenModal }) => {
             error={errors.end?.message}
           />
         </div>
-        <Button
-          onClick={() => setIsOpenModal(!isOpenModal)}
-          className="createtBtn"
-          type="submit"
-        >
+        <Button className="createtBtn" type="submit">
           Enviar
         </Button>
       </Form>

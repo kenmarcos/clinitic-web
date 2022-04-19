@@ -51,7 +51,13 @@ export const Title = styled.h2`
   }
 `;
 
-export const SchedulesBox = styled.div``;
+export const SchedulesBox = styled.div`
+  h2 {
+    color: var(--color3);
+    text-align: center;
+    margin: 2rem 0;
+  }
+`;
 
 export const SchedulesList = styled.ul``;
 
@@ -86,6 +92,7 @@ export const StyledModal = Modal.styled`
   background-color: var(--color2);
   position: relative;
   border-radius: 5px;
+  gap: 1rem;
 
   h3 {
     text-align: center;
@@ -98,7 +105,13 @@ export const StyledModal = Modal.styled`
     justify-content: center;
   }
 
+  svg {
+    font-size: 3.5rem;
+    color: var(--color1);
+  }
+
   @media only screen and (min-width: 1024px) {
-    width: 40rem;
+    width: 28rem;
+    padding: 2rem;
   }
 `;

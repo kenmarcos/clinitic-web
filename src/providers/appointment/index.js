@@ -1,15 +1,11 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import toast from "react-hot-toast";
 import api from "../../services/api";
+import { useDoctor } from "../doctor";
 
 const AppointmentContext = createContext();
 
 export const AppointmentProvider = ({ children }) => {
-  // const [dayAppointments, setDayAppointments] = useState(
-  //   JSON.parse(localStorage.getItem("@clinitic:dayAppointments")) || []
-  // );
-  const loggedDoctor =
-    JSON.parse(localStorage.getItem("@clinitic:loggedDoctor")) || {};
   const [dayAppointmentsByDoctor, setDayAppointmentsByDoctor] = useState(
     JSON.parse(localStorage.getItem("@clinitic:dayAppointmentsByDoctor")) || []
   );
@@ -23,24 +19,13 @@ export const AppointmentProvider = ({ children }) => {
       ) || []
     );
 
+  const { token, loggedDoctor } = useDoctor();
+
   const date = new Date();
   const day = String(date.getDate()).padStart(2, "0");
   const month = String(date.getMonth() + 1).padStart(2, "0");
   const year = date.getFullYear();
   const currentDate = `${year}-${month}-${day}`;
-
-  // const getAppointments = () => {
-  //   api
-  //     .get(`/appointments?date=${currentDate}`)
-  //     .then((res) => {
-  //       setDayAppointments(res.data);
-  //       localStorage.setItem(
-  //         "@clinitic:dayAppointments",
-  //         JSON.stringify(res.data)
-  //       );
-  //     })
-  //     .catch((err) => console.log(err));
-  // };
 
   const getAppointmentsByDoctorAndDay = () => {
     api
@@ -81,7 +66,7 @@ export const AppointmentProvider = ({ children }) => {
       .catch((err) => console.log(err));
   };
 
-  const cancelAppointment = (appointmentId, token) => {
+  const cancelAppointment = (appointmentId) => {
     const data = { isActive: false };
     api
       .patch(`/appointments/${appointmentId}/`, data, {
@@ -95,7 +80,7 @@ export const AppointmentProvider = ({ children }) => {
       .catch((_) => toast.error("Algo deu mal. Tente novamente."));
   };
 
-  const createAppointment = (data, patientId, token) => {
+  const createAppointment = (data, patientId) => {
     api
       .post(`/appointments/patients/${patientId}/`, data, {
         headers: {
@@ -105,16 +90,10 @@ export const AppointmentProvider = ({ children }) => {
       .then((_) => {
         toast.success("Agendamento feito com sucesso");
         getAppointmentsByDoctorAndIsActive();
+        getAppointmentsByDoctorAndDay();
       })
       .catch((_) => toast.error("Algo deu mal. Tente novamente."));
   };
-
-  useEffect(() => {
-    // getAppointments();
-    getAppointmentsByDoctorAndDay();
-    getAppointmentsByDoctor();
-    getAppointmentsByDoctorAndIsActive();
-  }, []);
 
   return (
     <AppointmentContext.Provider
@@ -126,6 +105,8 @@ export const AppointmentProvider = ({ children }) => {
         createAppointment,
         appointmentsByDoctor,
         appointmentsByDoctorAndIsActive,
+        getAppointmentsByDoctorAndDay,
+        getAppointmentsByDoctorAndIsActive,
       }}
     >
       {children}

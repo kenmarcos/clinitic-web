@@ -73,6 +73,7 @@ export const Container = styled.button`
     border: 1px solid var(--color3);
     background-color: var(--whiteColor);
     color: var(--darkGrayColor);
+    width: 5.75rem;
   }
 
   &.scheduleBtn {
@@ -80,11 +81,16 @@ export const Container = styled.button`
     color: var(--whiteColor);
   }
 
-  &.patientBtn {
+  &.listPatientBtn {
     width: 15rem;
     font-size: 1.3rem;
     display: block;
-    margin: 1rem auto;
+    margin: 1rem auto 2rem;
     padding: 10px;
+
+    @media only screen and (min-width: 1024px) {
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 `;

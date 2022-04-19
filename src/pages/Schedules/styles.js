@@ -25,11 +25,17 @@ export const CalendarContainer = styled.div`
   @media only screen and (min-width: 1024px) {
     width: 70rem;
     margin: 0 auto;
-    padding: 4rem;
+    padding: 1rem 4rem;
   }
 `;
 
-export const PatientList = styled.ul``;
+export const PatientList = styled.ul`
+  width: 100%;
+
+  li:first-child {
+    border-top: 1px dashed var(--grayColor);
+  }
+`;
 
 export const PatientItems = styled.li`
   padding: 10px;
@@ -50,6 +56,11 @@ export const PatientItems = styled.li`
     color: var(--redColor);
     text-decoration: underline;
   }
+
+  p {
+    text-align: center;
+    font-size: 1.3rem;
+  }
 `;
 
 export const StyledModal = Modal.styled`
@@ -58,53 +69,12 @@ export const StyledModal = Modal.styled`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  // justify-content: center;
   background-color: var(--color2);
   position: relative;
   border-radius: 5px;
-
-  h3 {
-    text-align: center;
-  }
-  
-  div {
-    display: flex;
-    gap: 1rem;
-    width: 100%;
-    justify-content: center;
-  }
-
-  @media only screen and (min-width: 1024px) {
-    width: 60rem;
-  }
-`;
-
-export const ScheduleModal = Modal.styled`
-  width: 90%;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color2);
-  position: relative;
-  border-radius: 5px;
-
-  @media only screen and (min-width: 1024px) {
-    width: 40rem;
-  }
-`;
-
-export const PatientModal = Modal.styled`
-  width: 90%;
-  padding: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background-color: var(--color2);
-  position: relative;
-  border-radius: 5px;
+  max-height: 85vh;
+  overflow: scroll;
 
   @media only screen and (min-width: 1024px) {
     width: 40rem;

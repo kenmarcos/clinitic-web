@@ -1,6 +1,7 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import toast from "react-hot-toast";
 import api from "../../services/api";
+import { useDoctor } from "../doctor";
 
 const PatientContext = createContext();
 
@@ -9,9 +10,15 @@ export const PatientProvider = ({ children }) => {
     JSON.parse(localStorage.getItem("@clinitic:patients")) || []
   );
 
+  const { token } = useDoctor();
+
   const getPatients = () => {
     api
-      .get("/patients/")
+      .get("/patients/", {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
       .then((res) => {
         setPatients(res.data);
         localStorage.setItem("@clinitic:patients", JSON.stringify(res.data));
@@ -21,20 +28,22 @@ export const PatientProvider = ({ children }) => {
 
   const createPatient = (data) => {
     api
-      .post("/patients/", data)
+      .post("/patients/", data, {
+        headers: {
+          Authorization: `Token ${token}`,
+        },
+      })
       .then((res) => {
         setPatients([...patients, res.data]);
         toast.success("Paciente adicionado com sucesso");
       })
-      .catch((_) => toast.error("Algo de mal. Tente novamente."));
+      .catch((_) => {
+        toast.error("Algo de mal. Tente novamente.");
+      });
   };
 
-  useEffect(() => {
-    getPatients();
-  }, []);
-
   return (
-    <PatientContext.Provider value={{ patients, createPatient }}>
+    <PatientContext.Provider value={{ patients, createPatient, getPatients }}>
       {children}
     </PatientContext.Provider>
   );
