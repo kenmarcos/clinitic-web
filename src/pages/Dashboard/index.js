@@ -130,7 +130,14 @@ const Dashboard = () => {
                   <SchedulesItems key={appointment.id}>
                     <h3>{appointment.title}</h3>
                     <span>Paciente: {appointment.patient["name"]}</span>
-                    <span>Horário: {appointment.start.slice(-9, -4)}</span>
+                    <span>
+                      Horário:
+                      {` ${String(
+                        new Date(appointment.start).getHours()
+                      ).padStart(2, "0")}h${String(
+                        new Date(appointment.start).getMinutes()
+                      ).padStart(2, "0")}`}
+                    </span>
                     {appointment.isActive ? (
                       <Button
                         onClick={() => handleModal(appointment.id)}
