@@ -22,6 +22,28 @@ export const LogoutContainer = styled.div`
 export const CalendarContainer = styled.div`
   background-color: var(--whiteColor);
 
+  .fc-toolbar-title:first-letter {
+    text-transform: uppercase;
+  }
+
+  .fc-button-primary {
+    background-color: var(--color1);
+    font-family: var(--font1);
+    font-weight: bold;
+    border-color: var(--color2);
+    &:hover {
+      background-color: var(--color3);
+    }
+  }
+
+  .fc-button-primary:not(:disabled).fc-button-active {
+    background-color: var(--color3);
+  }
+
+  a {
+    cursor: pointer;
+  }
+
   @media only screen and (min-width: 1024px) {
     width: 70rem;
     margin: 0 auto;

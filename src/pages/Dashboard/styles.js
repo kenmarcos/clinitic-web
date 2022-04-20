@@ -42,7 +42,7 @@ export const CardsBox = styled.div`
   justify-content: center;
 
   @media only screen and (min-width: 1024px) {
-    justify-content: start;
+    justify-content: space-evenly;
   }
 `;
 
