@@ -85,6 +85,19 @@ export const PatientItems = styled.li`
   }
 `;
 
+export const InputSearch = styled.input`
+  border-radius: 20px;
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 1rem;
+  ::placeholder {
+    font-size: 1rem;
+  }
+  :focus::-webkit-input-placeholder {
+    color: transparent;
+  }
+`;
+
 export const StyledModal = Modal.styled`
   width: 90%;
   padding: 1rem;

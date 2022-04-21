@@ -85,7 +85,7 @@ export const Container = styled.button`
     width: 15rem;
     font-size: 1.3rem;
     display: block;
-    margin: 1rem auto 2rem;
+    margin: 1rem auto;
     padding: 10px;
 
     @media only screen and (min-width: 1024px) {

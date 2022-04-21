@@ -9,6 +9,7 @@ import {
   PatientItems,
   StyledModal,
   EventModal,
+  InputSearch,
 } from "./styles";
 import Header from "../../components/Header";
 import { useNavigate } from "react-router-dom";
@@ -30,6 +31,9 @@ const Schedules = () => {
 
   const [eventInfo, setEventInfo] = useState({});
 
+  const [inputValue, setInputValue] = useState("");
+  const [patientsFound, setPatientsFound] = useState([]);
+
   const {
     appointmentsByDoctorAndIsActive,
     getAppointmentsByDoctorAndIsActive,
@@ -43,6 +47,7 @@ const Schedules = () => {
   const navigate = useNavigate();
 
   function toggleModal(e) {
+    setInputValue("");
     setIsOpenListPatientModal(!isOpenListPatientModal);
   }
 
@@ -60,6 +65,15 @@ const Schedules = () => {
   const toggleEventModal = (info) => {
     setEventInfo(info.event);
     setIsOpenEventModal(!isOpenEventModal);
+  };
+
+  const searchPatients = (inputSearch) => {
+    setInputValue(inputSearch);
+    setPatientsFound(
+      patients.filter((patient) =>
+        patient.name.toLowerCase().includes(inputValue.toLowerCase())
+      )
+    );
   };
 
   useEffect(() => {
@@ -173,10 +187,31 @@ const Schedules = () => {
             >
               Adicionar paciente
             </Button>
+            <InputSearch
+              type="search"
+              placeholder="Pesquisar..."
+              value={inputValue}
+              onChange={(e) => {
+                searchPatients(e.target.value);
+              }}
+            />
           </div>
           <PatientList>
-            {!!patients.length ? (
+            {inputValue === "" && !!patients.length ? (
               patients.map((patient) => (
+                <PatientItems key={patient.id}>
+                  <h3>{patient.name}</h3>
+                  <span>CPF: {patient.cpf}</span>
+                  <Button
+                    onClick={() => handleModal(patient.id)}
+                    className="cancelBtn scheduleBtn"
+                  >
+                    Agendar
+                  </Button>
+                </PatientItems>
+              ))
+            ) : inputValue !== "" ? (
+              patientsFound.map((patient) => (
                 <PatientItems key={patient.id}>
                   <h3>{patient.name}</h3>
                   <span>CPF: {patient.cpf}</span>
