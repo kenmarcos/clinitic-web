@@ -14,7 +14,7 @@
 - **[Tecnologias](#-tecnologias)**
 - **[Autor](#-autor)**
 
-## 🖥️ Sobre o projeto
+## 💻 Sobre o projeto
 
 **Clinitic** é uma aplicação de saúde digital de agendamentos para profissionais da saúde.
 
@@ -70,6 +70,7 @@ Para o desenvolvimento desse projeto, as seguintes ferramentas foram utilizadas:
 <img style="border-radius: 15%;" src="https://gitlab.com/uploads/-/system/user/avatar/8603970/avatar.png?width=400" width="70px;" alt=""/>
 
 Marcos Kenji Kuribayashi
+
 [![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/marcos-kuribayashi/) [![Gmail Badge](https://img.shields.io/badge/-marcosken13@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white)](mailto:marcosken13@gmail.com)
 
 ---
