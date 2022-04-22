@@ -1,70 +1,77 @@
-# Getting Started with Create React App
+# Clinitic 🩺
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+</p>
+<h1 align="center">
+    <img alt="clinitic-banner" src="./src/assets/readme.png" />
+</h1>
+<p align="center">
 
-## Available Scripts
+## Índice
 
-In the project directory, you can run:
+- **[Sobre o Projeto](#-sobre-o-projeto)**
+- **[Demonstração](#-demonstração)**
+- **[Funcionalidades](#-funcionalidades)**
+- **[Tecnologias](#-tecnologias)**
+- **[Autor](#-autor)**
 
-### `yarn start`
+## 🖥️ Sobre o projeto
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Clinitic** é uma aplicação de saúde digital de agendamentos para profissionais da saúde.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Com a função de agendamento, o profissional terá sempre uma visão geral de sua agenda e saberá quanto tempo precisa para estar com um paciente.
 
-### `yarn test`
+Com a Clinitic, é mais fácil administrar os atendimentos mensais e semanais, tornando a gestão de tempo mais clara, organizada e profissional.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Demonstração
 
-### `yarn build`
+<h1 align="center">
+    <img src="./src/assets/clinitic.gif" />
+</h1>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+**Deploy da aplicação**: [![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)](https://clinitic-front.vercel.app/)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## 💡 Funcionalidades
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- [x] Tela inicial com apresentação da aplicação
+  - [x] Cadastro de usuário (profissional da saúde)
+- [x] Tela de login
+- [x] Tela dashboard
+  - [x] Indicador de total de atendimentos para o dia
+  - [x] Indicador de atendimentos cancelados para o dia
+  - [x] Lista de pacientes agendados para o dia
+  - [ ] Lista de pacientes agendados por médico para o dia
+- [x] Tela de agendamento
+  - [x] Exibição dos agendamentos existentes com nome, sexo, e idade do paciente
+  - [x] Exibição dos agendamentos pro semana ou por mês
+  - [x] Criação de agendamento com base em um paciente existente ou um novo
 
-### `yarn eject`
+## 🛠️ Tecnologias
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Para o desenvolvimento desse projeto, as seguintes ferramentas foram utilizadas:
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Front-end
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+- **[React](https://pt-br.reactjs.org/)**
+- **[FullCalendar](https://fullcalendar.io/)**
+- **[React Hook Form](https://react-hook-form.com/)**
+- **[React Router Dom](https://www.npmjs.com/package/react-router-dom)**
+- **[Axios](https://axios-http.com/ptbr/)**
+- **[Yup](https://www.npmjs.com/package/yup)**
+- **[React Hot Toast](https://react-hot-toast.com/)**
+- **[React Icons](https://react-icons.github.io/react-icons/)**
+- **[Styled Components](https://styled-components.com/)**
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+#### Back-end
 
-## Learn More
+- **[Clinitic API](https://gitlab.com/marcosken/clinitic_api)**
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 👨‍💻 Autor
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+<img style="border-radius: 15%;" src="https://gitlab.com/uploads/-/system/user/avatar/8603970/avatar.png?width=400" width="70px;" alt=""/>
 
-### Code Splitting
+Marcos Kenji Kuribayashi
+[![Linkedin Badge](https://img.shields.io/badge/-LinkedIn-blue?style=flat-square&logo=Linkedin&logoColor=white)](https://www.linkedin.com/in/marcos-kuribayashi/) [![Gmail Badge](https://img.shields.io/badge/-marcosken13@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white)](mailto:marcosken13@gmail.com)
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+---
 
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Desenvolvido por Marcos Kenji Kuribayashi 😉
