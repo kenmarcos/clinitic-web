@@ -115,6 +115,7 @@ const Schedules = () => {
               dayGridMonth: "Mensal",
             }}
             eventClick={toggleEventModal}
+            timeZone="UTC"
           />
         </CalendarContainer>
         <EventModal
@@ -125,10 +126,10 @@ const Schedules = () => {
           <h3>{eventInfo?.title}</h3>
           <h3>
             Horário:
-            {` ${String(eventInfo?.start?.getHours()).padStart(
+            {` ${String(eventInfo?.start?.getUTCHours()).padStart(
               2,
               "0"
-            )}h${String(eventInfo?.start?.getMinutes()).padStart(2, "0")}`}
+            )}h${String(eventInfo?.start?.getUTCMinutes()).padStart(2, "0")}`}
           </h3>
           <ul>
             <li>

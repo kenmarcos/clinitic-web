@@ -133,9 +133,9 @@ const Dashboard = () => {
                     <span>
                       Horário:
                       {` ${String(
-                        new Date(appointment.start).getHours()
+                        new Date(appointment.start).getUTCHours()
                       ).padStart(2, "0")}h${String(
-                        new Date(appointment.start).getMinutes()
+                        new Date(appointment.start).getUTCMinutes()
                       ).padStart(2, "0")}`}
                     </span>
                     {appointment.isActive ? (
