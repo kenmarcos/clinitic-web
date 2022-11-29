@@ -28,7 +28,7 @@ Com a Clinitic, é mais fácil administrar os atendimentos mensais e semanais, t
     <img src="./src/assets/clinitic.gif" />
 </h1>
 
-**Deploy da aplicação**: [![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)](https://clinitic-front.vercel.app/)
+**Deploy da aplicação**: [![Vercel](https://img.shields.io/badge/vercel-%23000000.svg?style=for-the-badge&logo=vercel&logoColor=white)](https://clinitic-web.vercel.app/)
 
 ## 💡 Funcionalidades
 
@@ -63,7 +63,7 @@ Para o desenvolvimento desse projeto, as seguintes ferramentas foram utilizadas:
 
 #### Back-end
 
-- **[Clinitic API](https://gitlab.com/marcosken/clinitic_api)**
+- **[Clinitic API](https://github.com/kenmarcos/clinitic-api)**
 
 ## 👨‍💻 Autor
 
